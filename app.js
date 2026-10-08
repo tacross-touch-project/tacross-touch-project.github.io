@@ -19,7 +19,7 @@ function setTask(index){
   const card=document.createElement('figure');card.className='execution-card';
   const caption=document.createElement('figcaption');caption.textContent=label;
   const clip=document.createElement('video');
-  clip.controls=true;clip.muted=true;clip.playsInline=true;clip.preload='none';
+  clip.controls=true;clip.muted=true;clip.defaultMuted=true;clip.autoplay=true;clip.loop=true;clip.playsInline=true;clip.preload='auto';
   clip.poster=`assets/${name}.jpg`;clip.src=`assets/${name}.mp4`;
   clip.setAttribute('aria-label',`${t.title}: ${label}`);
   visibility.observe(clip);
@@ -41,10 +41,16 @@ hero.addEventListener('play',()=>{toggle.textContent='Ⅱ Pause overview';toggle
 hero.addEventListener('pause',()=>{toggle.textContent='▶ Play overview';toggle.setAttribute('aria-label','Play overview video');});
 const visibility=new IntersectionObserver(es=>es.forEach(e=>{
  if(e.target===hero){heroVisible=e.isIntersecting;syncHeroPlayback();}
- else if(!e.isIntersecting)e.target.pause();
+ else if(e.isIntersecting&&!document.hidden&&e.target.isConnected)e.target.play().catch(()=>{});
+ else e.target.pause();
 }),{threshold:.1});
 visibility.observe(hero);
-document.addEventListener('visibilitychange',syncHeroPlayback);
+let backgroundPausedClips=[];
+document.addEventListener('visibilitychange',()=>{
+ syncHeroPlayback();
+ if(document.hidden){backgroundPausedClips=[...executionGrid.querySelectorAll('video')].filter(v=>!v.paused);backgroundPausedClips.forEach(v=>v.pause());}
+ else{backgroundPausedClips.filter(v=>v.isConnected).forEach(v=>v.play().catch(()=>{}));backgroundPausedClips=[];}
+});
 document.querySelector('#copy-citation').addEventListener('click',async e=>{const text=document.querySelector('#citation').textContent;try{await navigator.clipboard.writeText(text);}catch{const range=document.createRange();range.selectNodeContents(document.querySelector('#citation'));const s=window.getSelection();s.removeAllRanges();s.addRange(range);e.target.textContent='Select & copy';document.querySelector('#copy-status').textContent='Citation selected. Use your browser copy command.';return;}e.target.textContent='Copied ✓';document.querySelector('#copy-status').textContent='BibTeX copied to clipboard.';setTimeout(()=>e.target.textContent='Copy BibTeX',2000);});
 const sections=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.hash===`#${e.target.id}`));}),{rootMargin:'-15% 0px -65% 0px'});document.querySelectorAll('main section[id]').forEach(s=>sections.observe(s));
 setTask(0);
