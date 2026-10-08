@@ -52,7 +52,6 @@ document.addEventListener('visibilitychange',()=>{
  else{backgroundPausedClips.filter(v=>v.isConnected).forEach(v=>v.play().catch(()=>{}));backgroundPausedClips=[];}
 });
 document.querySelector('#copy-citation').addEventListener('click',async e=>{const text=document.querySelector('#citation').textContent;try{await navigator.clipboard.writeText(text);}catch{const range=document.createRange();range.selectNodeContents(document.querySelector('#citation'));const s=window.getSelection();s.removeAllRanges();s.addRange(range);e.target.textContent='Select & copy';document.querySelector('#copy-status').textContent='Citation selected. Use your browser copy command.';return;}e.target.textContent='Copied ✓';document.querySelector('#copy-status').textContent='BibTeX copied to clipboard.';setTimeout(()=>e.target.textContent='Copy BibTeX',2000);});
-const sections=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.hash===`#${e.target.id}`));}),{rootMargin:'-15% 0px -65% 0px'});document.querySelectorAll('main section[id]').forEach(s=>sections.observe(s));
 setTask(0);
 
 const figureDialog=document.querySelector('#figure-dialog');
@@ -68,3 +67,17 @@ document.querySelectorAll('.paper-zoom').forEach(link=>link.addEventListener('cl
 figureDialog.querySelector('.figure-close').addEventListener('click',()=>figureDialog.close());
 figureDialog.addEventListener('click',event=>{if(event.target===figureDialog){const r=figureDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)figureDialog.close();}});
 figureDialog.addEventListener('close',()=>figureOpener?.focus());
+
+const readingNav=document.querySelector('.reading-nav');
+const readingSections=[...document.querySelectorAll('#overview,#demos,#method,#system,#dataset,#results,#resources')];
+let readingTick=false;
+function updateReadingNav(){
+ readingTick=false;
+ const section=readingSections.filter(s=>s.getBoundingClientRect().top<=window.innerHeight*.35).at(-1);
+ readingNav.hidden=!section||section.id==='demos';
+ document.querySelectorAll('.reading-nav a,header nav a').forEach(a=>{const active=a.hash===`#${section?.id}`;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
+}
+function scheduleReadingNav(){if(!readingTick){readingTick=true;requestAnimationFrame(updateReadingNav);}}
+window.addEventListener('scroll',scheduleReadingNav,{passive:true});
+window.addEventListener('resize',scheduleReadingNav);
+updateReadingNav();
