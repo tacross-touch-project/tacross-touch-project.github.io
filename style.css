@@ -369,3 +369,5 @@ footer p,footer>a:last-child{font-size:15px}
 #supplementary-sound{background:transparent;color:#eef5ef;border:1px solid #6d8478;border-radius:5px;min-height:44px;padding:10px 16px;font-family:Arial,sans-serif;font-size:15px;white-space:nowrap}
 #supplementary-sound:hover{background:#29443b}
 @media(max-width:720px){.supplementary-section{padding-top:48px;padding-bottom:10px}.supplementary-heading h2{font-size:28px}.supplementary-heading>p{font-size:16px}.supplementary-film{padding:0}.supplementary-caption{padding:14px 22px;flex-wrap:wrap;font-size:11px}}
+
+.hero .intro p+p{margin-top:18px}
