@@ -371,3 +371,7 @@ footer p,footer>a:last-child{font-size:15px}
 @media(max-width:720px){.supplementary-section{padding-top:48px;padding-bottom:10px}.supplementary-heading h2{font-size:28px}.supplementary-heading>p{font-size:16px}.supplementary-film{padding:0}.supplementary-caption{padding:14px 22px;flex-wrap:wrap;font-size:11px}}
 
 .hero .intro p+p{margin-top:18px}
+
+/* Consistent execution outcomes across all four tasks. */
+.execution-card[data-outcome="success"] figcaption{color:#ffad5c}
+.execution-card[data-outcome="failure"] figcaption{color:#ff7373}

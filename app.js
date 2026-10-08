@@ -16,7 +16,7 @@ function setTask(index){
  executionGrid.querySelectorAll('video').forEach(v=>{v.pause();visibility.unobserve(v);v.removeAttribute('src');v.querySelectorAll('source').forEach(s=>s.remove());v.load();});
  executionGrid.dataset.count=t.clips.length;
  executionGrid.replaceChildren(...t.clips.map(([name,label])=>{
-  const card=document.createElement('figure');card.className='execution-card';
+  const card=document.createElement('figure');card.className='execution-card';card.dataset.outcome=name.endsWith('-failure')?'failure':'success';
   const caption=document.createElement('figcaption');caption.textContent=label;
   const clip=document.createElement('video');
   clip.controls=true;clip.muted=true;clip.defaultMuted=true;clip.autoplay=true;clip.loop=true;clip.playsInline=true;clip.preload='auto';
