@@ -8,8 +8,9 @@
   ['CONDITION','The robot tactile latent joins robot RGB and state to condition the policy. Human demonstrations support representation learning and auxiliary training supervision.'],
   ['ACT','The policy predicts arm and hand action chunks. During training, executed robot actions provide ground-truth action supervision.']
  ];
- let phase=0,mode='train',speed=1,wantsPlay=!reduced.matches,visible=false,elapsed=0,last=0,raf=0;
+ let phase=0,mode='train',speed=0.5,wantsPlay=!reduced.matches,visible=false,elapsed=0,last=0,raf=0;
  const toggle=root.querySelector('#flow-toggle');
+ root.style.setProperty('--flow-speed',speed);
  const sequence=()=>mode==='train'?[0,1,2,3,4]:[0,1,3,4];
  function draw(){
   root.dataset.phase=phase;root.dataset.mode=mode;
