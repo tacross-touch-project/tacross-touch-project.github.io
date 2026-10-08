@@ -1,0 +1,30 @@
+const tasks=[
+ {title:'Fixed-point dispensing',description:'Grasp the tool, dispense the prescribed dose at the target, and return without leakage.',challenge:'Regulate grasp and squeeze while controlling the dispensed dose.',sequence:'dispense',clips:[['dispense-one','Success · One drop'],['dispense-two','Success · Two drops'],['dispense-failure','Failure example']]},
+ {title:'Beaker-to-beaker liquid transfer',description:'Lift from the right, transfer liquid to the left beaker without early dripping, and return to the right.',challenge:'Maintain a secure grasp and control liquid release during transfer.',sequence:'transfer',clips:[['transfer-one','Success · One drop'],['transfer-three','Success · Three drops'],['transfer-failure','Failure example']]},
+ {title:'Precision pipetting',description:'Aspirate liquid, dispense at the petri-dish target without leakage, and return the tool.',challenge:'Coordinate fine squeezing with precise placement of the pipette tip.',sequence:'pipette',clips:[['pipette-one','Success · One drop'],['pipette-three','Success · Three drops'],['pipette-failure','Failure example']]},
+ {title:'Sequential fruit pick-and-place',description:'Pick the strawberry, then the grape, and place both stably without damage.',challenge:'Adjust contact for objects with different geometry and compliance.',sequence:'fruit',clips:[['fruit-success','Successful execution'],['fruit-failure','Failure example']]}
+];
+let activeTask=0;
+const video=document.querySelector('#task-video'),select=document.querySelector('#clip-select');
+function setClip(){const [name,label]=tasks[activeTask].clips[Number(select.value)];video.pause();video.poster=`assets/${name}.jpg`;video.src=`assets/${name}.mp4`;video.load();video.setAttribute('aria-label',`${tasks[activeTask].title}: ${label}`);document.querySelector('#clip-caption').textContent=label;}
+function setTask(index){activeTask=index;const t=tasks[index];document.querySelectorAll('[data-task]').forEach((b,i)=>{b.setAttribute('aria-selected',String(i===index));b.tabIndex=i===index?0:-1;});document.querySelector('#task-panel').setAttribute('aria-labelledby',`tab-${index}`);document.querySelector('#task-number').textContent=`TASK 0${index+1}`;document.querySelector('#task-title').textContent=t.title;document.querySelector('#task-description').textContent=t.description;document.querySelector('#task-challenge').textContent=t.challenge;select.replaceChildren(...t.clips.map((c,i)=>new Option(c[1],i)));const im=document.querySelector('#task-sequence');im.src=`assets/${t.sequence}-sequence.webp`;im.alt=`${t.title}: human and robot keyframes, tactile maps and force traces`;setClip();}
+document.querySelectorAll('[data-task]').forEach((b,i)=>{b.addEventListener('click',()=>setTask(i));b.addEventListener('keydown',e=>{let n=i;if(e.key==='ArrowRight')n=(i+1)%4;else if(e.key==='ArrowLeft')n=(i+3)%4;else if(e.key==='Home')n=0;else if(e.key==='End')n=3;else return;e.preventDefault();setTask(n);document.querySelector(`#tab-${n}`).focus();});});select.addEventListener('change',setClip);
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{const deploy=b.dataset.mode==='deploy';document.querySelectorAll('[data-mode]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.querySelector('#pipeline').classList.toggle('deployment',deploy);document.querySelector('#mode-description').textContent=deploy?'At deployment, the robot branch encodes Revo2 touch. The ACT policy uses robot RGB, state and tactile observations to produce arm and hand actions. No human observations are needed.':'Robot demonstrations provide ground-truth action supervision. Human demonstrations support tactile representation learning and confidence-weighted auxiliary hand supervision.';}));
+const hero=document.querySelector('#hero-video'),toggle=document.querySelector('#hero-toggle');
+let heroWantsPlayback=true,heroVisible=false;
+function syncHeroPlayback(){
+ if(heroWantsPlayback&&heroVisible&&!document.hidden){hero.play().catch(()=>{toggle.textContent='▶ Play overview';toggle.setAttribute('aria-label','Play overview video');});}
+ else hero.pause();
+}
+toggle.addEventListener('click',()=>{heroWantsPlayback=hero.paused;syncHeroPlayback();});
+hero.addEventListener('play',()=>{toggle.textContent='Ⅱ Pause overview';toggle.setAttribute('aria-label','Pause overview video');});
+hero.addEventListener('pause',()=>{toggle.textContent='▶ Play overview';toggle.setAttribute('aria-label','Play overview video');});
+const visibility=new IntersectionObserver(es=>es.forEach(e=>{
+ if(e.target===hero){heroVisible=e.isIntersecting;syncHeroPlayback();}
+ else if(!e.isIntersecting)e.target.pause();
+}),{threshold:.1});
+document.querySelectorAll('video').forEach(v=>{visibility.observe(v);v.addEventListener('play',()=>document.querySelectorAll('video').forEach(other=>{if(other!==v)other.pause();}));});
+document.addEventListener('visibilitychange',syncHeroPlayback);
+document.querySelector('#copy-citation').addEventListener('click',async e=>{const text=document.querySelector('#citation').textContent;try{await navigator.clipboard.writeText(text);}catch{const range=document.createRange();range.selectNodeContents(document.querySelector('#citation'));const s=window.getSelection();s.removeAllRanges();s.addRange(range);e.target.textContent='Select & copy';document.querySelector('#copy-status').textContent='Citation selected. Use your browser copy command.';return;}e.target.textContent='Copied ✓';document.querySelector('#copy-status').textContent='BibTeX copied to clipboard.';setTimeout(()=>e.target.textContent='Copy BibTeX',2000);});
+const sections=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.hash===`#${e.target.id}`));}),{rootMargin:'-15% 0px -65% 0px'});document.querySelectorAll('main section[id]').forEach(s=>sections.observe(s));
+video.setAttribute('aria-label','Fixed-point dispensing: success, one drop');
