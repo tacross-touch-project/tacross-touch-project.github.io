@@ -329,3 +329,30 @@ footer p,footer>a:last-child{font-size:15px}
 #method .method-animation .flow-mobile-hint{font-size:12px}
 .flow-canvas .flow-observation-label{font-size:10px}
 .flow-edge.is-active{animation-duration:calc(.8s / var(--flow-speed,1))}
+
+/* One compact task brief between the tabs and execution videos. */
+#demos>.task-tabs{margin-bottom:0}
+#demos .demo-info.task-brief{display:grid;grid-template-columns:1fr 1.2fr 1.1fr;gap:32px;padding:26px 0 28px;align-items:start}
+#demos .task-brief>div{min-width:0}
+#demos .task-brief #task-title{font-size:clamp(23px,1.8vw,31px);line-height:1.25;margin:8px 0 0;grid-column:auto;grid-row:auto}
+#demos .task-brief #task-description,#demos .task-brief #task-challenge{font-size:16px;line-height:1.65;margin:8px 0 0}
+#demos .task-brief .contact-note{grid-column:auto;grid-row:auto;margin:0;padding:0;border:0}
+#demos .task-brief .task-goal,#demos .task-brief .contact-note{border-left:1px solid var(--line);padding-left:28px}
+#demos .demo-layout>.results-stage{background:#101b18;padding:28px 3vw 14px}
+#demos .demo-note{width:calc(100% - 8vw);max-width:1656px;margin:18px auto 0}
+#demos .demo-note p{margin:0;font-size:12px!important;line-height:1.6}
+#demos .sequence{margin-top:18px}
+@media(max-width:900px){
+ #demos .demo-info.task-brief{grid-template-columns:1fr 1fr;gap:18px 24px}
+ #demos .task-brief .task-identity{grid-column:1/-1}
+ #demos .task-brief .task-goal{border:0;padding-left:0}
+}
+@media(max-width:720px){
+ #demos .demo-info.task-brief{display:grid;grid-template-columns:1fr;gap:18px;padding:22px 0}
+ #demos .task-brief .task-identity{grid-column:auto}
+ #demos .task-brief .contact-note{border:0;padding-left:0}
+ #demos .task-brief #task-title{font-size:25px}
+ #demos .task-brief #task-description,#demos .task-brief #task-challenge{font-size:15px}
+ #demos .demo-layout>.results-stage{padding:24px 22px 16px}
+ #demos .demo-note{width:calc(100% - 44px)}
+}
