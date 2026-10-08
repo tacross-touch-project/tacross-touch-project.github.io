@@ -171,3 +171,5 @@ footer p,footer>a:last-child{font-size:15px}
  table{font-size:14px}th{font-size:12px}.chart-heading,.bar-row>div:first-child{font-size:15px}
  pre{font-size:12px}
 }
+
+.resource-line .text-link{display:block;padding:8px 0}
