@@ -44,10 +44,15 @@ const visibility=new IntersectionObserver(es=>es.forEach(e=>{
  else e.target.pause();
 }),{threshold:.1});
 visibility.observe(hero);
+const supplementaryVideo=document.querySelector('#supplementary-video');
+visibility.observe(supplementaryVideo);
+const soundButton=document.querySelector('#supplementary-sound');
+soundButton.addEventListener('click',()=>{supplementaryVideo.muted=!supplementaryVideo.muted;if(!supplementaryVideo.muted)supplementaryVideo.play().catch(()=>{});});
+supplementaryVideo.addEventListener('volumechange',()=>{const audible=!supplementaryVideo.muted&&supplementaryVideo.volume>0;soundButton.textContent=audible?'Mute narration ♫':'Enable narration ♫';soundButton.setAttribute('aria-pressed',String(audible));});
 let backgroundPausedClips=[];
 document.addEventListener('visibilitychange',()=>{
  syncHeroPlayback();
- if(document.hidden){backgroundPausedClips=[...executionGrid.querySelectorAll('video')].filter(v=>!v.paused);backgroundPausedClips.forEach(v=>v.pause());}
+ if(document.hidden){backgroundPausedClips=[...document.querySelectorAll('#execution-grid video,#supplementary-video')].filter(v=>!v.paused);backgroundPausedClips.forEach(v=>v.pause());}
  else{backgroundPausedClips.filter(v=>v.isConnected).forEach(v=>v.play().catch(()=>{}));backgroundPausedClips=[];}
 });
 document.querySelector('#copy-citation').addEventListener('click',async e=>{const text=document.querySelector('#citation').textContent;try{await navigator.clipboard.writeText(text);}catch{const range=document.createRange();range.selectNodeContents(document.querySelector('#citation'));const s=window.getSelection();s.removeAllRanges();s.addRange(range);e.target.textContent='Select & copy';document.querySelector('#copy-status').textContent='Citation selected. Use your browser copy command.';return;}e.target.textContent='Copied ✓';document.querySelector('#copy-status').textContent='BibTeX copied to clipboard.';setTimeout(()=>e.target.textContent='Copy BibTeX',2000);});
@@ -68,12 +73,12 @@ figureDialog.addEventListener('click',event=>{if(event.target===figureDialog){co
 figureDialog.addEventListener('close',()=>figureOpener?.focus());
 
 const readingNav=document.querySelector('.reading-nav');
-const readingSections=[...document.querySelectorAll('#overview,#demos,#method,#system,#dataset,#results,#resources')];
+const readingSections=[...document.querySelectorAll('#overview,#supplementary,#demos,#method,#system,#dataset,#results,#resources')];
 let readingTick=false;
 function updateReadingNav(){
  readingTick=false;
  const section=readingSections.filter(s=>s.getBoundingClientRect().top<=window.innerHeight*.35).at(-1);
- readingNav.hidden=!section||section.id==='demos';
+ readingNav.hidden=!section||['demos','supplementary'].includes(section.id);
  document.querySelectorAll('.reading-nav a,header nav a').forEach(a=>{const active=a.hash===`#${section?.id}`;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
 }
 function scheduleReadingNav(){if(!readingTick){readingTick=true;requestAnimationFrame(updateReadingNav);}}

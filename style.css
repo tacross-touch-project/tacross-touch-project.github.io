@@ -356,3 +356,16 @@ footer p,footer>a:last-child{font-size:15px}
  #demos .demo-layout>.results-stage{padding:24px 22px 16px}
  #demos .demo-note{width:calc(100% - 44px)}
 }
+
+/* Full supplementary film, between the project introduction and task clips. */
+.supplementary-section{padding-top:64px;padding-bottom:32px}
+.supplementary-heading{text-align:center;margin-bottom:32px!important;font-family:'Noto Sans',Arial,sans-serif}
+.supplementary-heading h2{font-size:32px;font-weight:600;line-height:1.2;letter-spacing:-.6px}
+.supplementary-heading>p{font-size:17px;line-height:1.7;max-width:780px;margin:20px auto 0}
+.supplementary-heading .section-label{font-family:'Google Sans',Arial,sans-serif;font-size:14px;letter-spacing:1px;font-weight:700}
+.supplementary-film{background:#101b18;padding:24px 3vw 0}
+.supplementary-film video{display:block;width:100%;height:auto;aspect-ratio:960/544;object-fit:contain;background:#101b18}
+.supplementary-caption{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;color:#b8c9c0;font-size:13px;font-family:monospace}
+#supplementary-sound{background:transparent;color:#eef5ef;border:1px solid #6d8478;border-radius:5px;min-height:44px;padding:10px 16px;font-family:Arial,sans-serif;font-size:15px;white-space:nowrap}
+#supplementary-sound:hover{background:#29443b}
+@media(max-width:720px){.supplementary-section{padding-top:48px;padding-bottom:10px}.supplementary-heading h2{font-size:28px}.supplementary-heading>p{font-size:16px}.supplementary-film{padding:0}.supplementary-caption{padding:14px 22px;flex-wrap:wrap;font-size:11px}}
