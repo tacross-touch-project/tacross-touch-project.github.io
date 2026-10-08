@@ -29,3 +29,9 @@ Open http://localhost:8765/.
 GitHub Pages publishes the repository root from the `codex/project-page` branch. Videos retain the source playback speed marked in the footage. Failure examples are not ablation baselines.
 
 All research imagery and footage are supplied by the TACROSS authors. No additional license is granted by this website repository.
+
+## Search discovery
+
+The canonical project URL is https://tacross-touch-project.github.io/. Both deployments identify this organization site as the canonical version. Use this URL in publications, author pages, and repository descriptions.
+
+The HTML head includes scholarly citation metadata, structured article data, and social sharing metadata. The organization site serves `robots.txt` and `sitemap.xml`. Search Console ownership verification and indexing requests are managed separately.
