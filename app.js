@@ -48,3 +48,17 @@ document.addEventListener('visibilitychange',syncHeroPlayback);
 document.querySelector('#copy-citation').addEventListener('click',async e=>{const text=document.querySelector('#citation').textContent;try{await navigator.clipboard.writeText(text);}catch{const range=document.createRange();range.selectNodeContents(document.querySelector('#citation'));const s=window.getSelection();s.removeAllRanges();s.addRange(range);e.target.textContent='Select & copy';document.querySelector('#copy-status').textContent='Citation selected. Use your browser copy command.';return;}e.target.textContent='Copied ✓';document.querySelector('#copy-status').textContent='BibTeX copied to clipboard.';setTimeout(()=>e.target.textContent='Copy BibTeX',2000);});
 const sections=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.hash===`#${e.target.id}`));}),{rootMargin:'-15% 0px -65% 0px'});document.querySelectorAll('main section[id]').forEach(s=>sections.observe(s));
 setTask(0);
+
+const figureDialog=document.querySelector('#figure-dialog');
+let figureOpener=null;
+document.querySelectorAll('.paper-zoom').forEach(link=>link.addEventListener('click',event=>{
+ if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+ event.preventDefault();figureOpener=link;
+ const source=link.querySelector('img'),full=figureDialog.querySelector('img');
+ full.src=link.href;full.alt=source.alt;
+ figureDialog.querySelector('p').textContent=link.parentElement.querySelector('figcaption').textContent;
+ figureDialog.showModal();
+}));
+figureDialog.querySelector('.figure-close').addEventListener('click',()=>figureDialog.close());
+figureDialog.addEventListener('click',event=>{if(event.target===figureDialog){const r=figureDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)figureDialog.close();}});
+figureDialog.addEventListener('close',()=>figureOpener?.focus());

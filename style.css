@@ -52,3 +52,22 @@
  .execution-grid,.execution-grid[data-count="2"]{grid-template-columns:1fr;gap:26px}
  .execution-card figcaption{font-size:16px;padding-bottom:12px}
 }
+
+/* Figures exported directly from the supplied manuscript. */
+.paper-figure{margin:0;min-width:0}
+.paper-zoom{display:block;position:relative;background:white;padding:18px;cursor:zoom-in}
+.paper-zoom img{width:100%;height:auto;max-height:none;object-fit:contain}
+.figure-expand{display:block;text-align:right;margin-top:12px;color:var(--green);font-size:11px}
+.paper-figure figcaption{font-size:12px;line-height:1.7;color:var(--muted);margin-top:14px}
+#method .paper-figure{margin:0 0 44px}
+.paper-story{margin-top:64px;padding-top:38px;border-top:1px solid var(--line)}
+.paper-story h3{margin:16px 0 26px}
+.evaluation-setup{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:center;padding-bottom:48px;margin-bottom:40px;border-bottom:1px solid var(--line)}
+.evaluation-setup h3{margin-top:18px;font-size:31px}
+.evaluation-setup p{font-size:14px}
+#figure-dialog{width:min(1600px,96vw);max-width:96vw;max-height:94vh;padding:52px 20px 20px;border:0;background:#fff;color:var(--ink);overflow:auto}
+#figure-dialog::backdrop{background:rgba(8,19,15,.85)}
+#figure-dialog img{width:100%;height:auto}
+#figure-dialog p{font-size:13px;margin:18px 0 0}
+.figure-close{position:absolute;top:12px;right:16px;border:1px solid var(--line);padding:8px 14px;font:inherit;background:white}
+@media(max-width:720px){.paper-zoom{padding:10px}.paper-figure figcaption{font-size:11px}.paper-story{margin-top:40px}.evaluation-setup{grid-template-columns:1fr;gap:22px}.evaluation-setup h3{font-size:28px}#figure-dialog{padding:52px 12px 16px}}
