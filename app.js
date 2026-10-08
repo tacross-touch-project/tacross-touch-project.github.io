@@ -29,7 +29,6 @@ function setTask(index){
  const im=document.querySelector('#task-sequence');im.src=`assets/${t.sequence}-sequence.webp`;im.alt=`${t.title}: human and robot keyframes, tactile maps and force traces`;
 }
 document.querySelectorAll('[data-task]').forEach((b,i)=>{b.addEventListener('click',()=>setTask(i));b.addEventListener('keydown',e=>{let n=i;if(e.key==='ArrowRight')n=(i+1)%4;else if(e.key==='ArrowLeft')n=(i+3)%4;else if(e.key==='Home')n=0;else if(e.key==='End')n=3;else return;e.preventDefault();setTask(n);document.querySelector(`#tab-${n}`).focus();});});
-document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{const deploy=b.dataset.mode==='deploy';document.querySelectorAll('[data-mode]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.querySelector('#pipeline').classList.toggle('deployment',deploy);document.querySelector('#mode-description').textContent=deploy?'At deployment, the robot branch encodes Revo2 touch. The ACT policy uses robot RGB, state and tactile observations to produce arm and hand actions. No human observations are needed.':'Robot demonstrations provide ground-truth action supervision. Human demonstrations support tactile representation learning and confidence-weighted auxiliary hand supervision.';}));
 const hero=document.querySelector('#hero-video'),toggle=document.querySelector('#hero-toggle');
 let heroWantsPlayback=true,heroVisible=false;
 function syncHeroPlayback(){

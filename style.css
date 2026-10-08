@@ -305,3 +305,27 @@ footer p,footer>a:last-child{font-size:15px}
 }
 
 .affiliation-item{display:inline-block;margin:0 5px}
+.method-animation{background:#fff;border:1px solid #d6dfd7;border-radius:14px;padding:26px 24px 18px;margin-bottom:24px;color:#23332e}
+.flow-top{display:flex;align-items:center;justify-content:space-between;gap:18px}.flow-kicker{font:11px monospace;letter-spacing:1.6px;color:var(--green)}
+#method .flow-top h3{font-size:23px;margin:8px 0 0}.flow-modes{display:flex;flex-shrink:0;border:1px solid #cdd8d1;border-radius:8px;padding:3px}
+.method-animation button{font-family:inherit;border:1px solid #d4ddd6;border-radius:6px;min-height:42px;padding:9px 13px;font-size:13px;background:#fff;color:#40554c}
+.method-animation button:hover{border-color:var(--green);background:#f0f5f1}.method-animation button[aria-pressed=true]{background:#27756b;color:#fff;border-color:#27756b}
+.flow-modes button{border:0}.flow-legend{display:flex;flex-wrap:wrap;gap:22px;font-size:12px;color:#65766d;margin:24px 0 0}.flow-legend span{display:flex;align-items:center;gap:7px}.flow-legend i{height:8px;width:8px;border-radius:50%;background:#675585}.flow-legend .human-dot{background:#347eb0}.flow-legend .robot-dot{background:#c37d43}
+.flow-canvas{overflow-x:auto;margin:0 -8px}.flow-canvas svg{display:block;width:100%;min-width:760px;height:auto;font-family:'Noto Sans',Arial,sans-serif}
+.flow-canvas text{font-size:16px;fill:#64736c}.flow-canvas .flow-title{font-size:19px;font-weight:600;fill:#293c33}.flow-canvas .flow-small{font-size:12px}.flow-canvas .flow-row-label{font-size:12px;font-weight:600;letter-spacing:.8px}.flow-canvas .flow-latent{font-size:31px;font-weight:600}.flow-canvas .human-text{fill:#347eb0}.flow-canvas .robot-text{fill:#bc7540}
+.flow-node rect{fill:#f9fbfa;stroke:#d5ded9;stroke-width:1.5;transition:fill .4s,stroke .4s}.flow-node.is-active rect{fill:#e8f4ed;stroke:#27756b;stroke-width:2.5}.flow-policy rect{fill:#f0ebf7;stroke:#b4a7c7}.flow-policy.is-active rect{fill:#e5def0;stroke:#796296}
+.human-line{stroke:#347eb0}.robot-line{stroke:#c37d43}.shared-line{stroke:#796296}.flow-edge{opacity:.3}.flow-edge.is-active{opacity:1;stroke-width:3;stroke-dasharray:8 7;animation:flow-stream .8s linear infinite}
+@keyframes flow-stream{to{stroke-dashoffset:-30}}
+.method-animation:not(.is-running) .flow-edge{animation-play-state:paused}
+.human-only{transition:opacity .4s}.method-animation[data-mode=deploy] .human-only{opacity:.08;pointer-events:none}.flow-deploy-note{display:none}.method-animation[data-mode=deploy] .flow-deploy-note{display:block}
+.flow-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding-top:14px;border-top:1px solid #e0e6e1}.flow-steps button{font-size:11px;padding:10px 5px;font-weight:600}.flow-steps button:disabled{opacity:.3;cursor:default}
+.flow-explanation{min-height:116px;padding:20px 0 16px}.flow-explanation>span{font:12px monospace;letter-spacing:1px;color:#27756b}#method .flow-explanation p{font-size:15px;margin:8px 0 0;line-height:1.6}
+.flow-controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.flow-controls>div{display:flex;gap:7px}#method .flow-footnote{font-size:11px;color:#718078;line-height:1.6;margin:18px 0 0}
+#method .flow-mobile-hint{display:none;font-size:12px;color:#718078}.method-original{border-bottom:1px solid var(--line);margin-bottom:24px}#method .method-original .paper-figure{margin:0 0 24px}
+@media(max-width:720px){.method-animation{padding:18px 14px}.flow-top{align-items:flex-start;flex-direction:column}#method .flow-top h3{font-size:21px}.flow-legend{gap:12px;font-size:11px}.flow-canvas{margin:0 -4px}#method .flow-mobile-hint{display:block;margin:16px 0 0}.flow-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.flow-explanation{min-height:155px}.method-animation button{min-height:44px}.flow-controls{gap:12px}}
+@media(prefers-reduced-motion:reduce){.flow-edge.is-active{animation:none}.flow-node rect,.human-only{transition:none}}
+
+#method .method-animation .flow-footnote{font-size:11px;line-height:1.6}
+#method .method-animation .flow-mobile-hint{font-size:12px}
+.flow-canvas .flow-observation-label{font-size:10px}
+.flow-edge.is-active{animation-duration:calc(.8s / var(--flow-speed,1))}
