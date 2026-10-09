@@ -3,7 +3,7 @@
 Research project website for **TACROSS: An Efficient and Low-Cost Scalable Human Touch System Across Heterogeneous Tactile Sensors for Dexterous Robot Learning**.
 
 - [Project page](https://tacross-touch-project.github.io/)
-- [Paper](https://agentic-intelligence-lab.org/files/TACROSS.pdf)
+- [Paper](https://arxiv.org/pdf/2610.11945)
 
 ## Website contents
 
