@@ -9,7 +9,7 @@ Research project website for **TACROSS: An Efficient and Low-Cost Scalable Human
 
 Four task demonstrations with success and failure examples, an interactive training/deployment overview, hardware and dataset information, and experimental results from the manuscript.
 
-This repository contains the project website. Research code, hardware designs, and the dataset are planned for release; this website repository is not the algorithm implementation.
+This repository contains the project website. Hardware v1 manufacturing files are available in the GitHub release linked below. Research code and the dataset are planned for release; this website repository is not the algorithm implementation.
 
 ## Local preview
 
@@ -35,3 +35,10 @@ All research imagery and footage are supplied by the TACROSS authors. No additio
 The canonical project URL is https://tacross-touch-project.github.io/. Both deployments identify this organization site as the canonical version. Use this URL in publications, author pages, and repository descriptions.
 
 The HTML head includes scholarly citation metadata, structured article data, and social sharing metadata. The organization site serves `robots.txt` and `sitemap.xml`. Search Console ownership verification and indexing requests are managed separately.
+
+## Hardware v1 download
+
+- [Download tacross_v1.zip](https://github.com/tacross-touch-project/tacross-touch-project.github.io/releases/download/hardware-v1/tacross_v1.zip)
+- [GitHub release and checksum](https://github.com/tacross-touch-project/tacross-touch-project.github.io/releases/tag/hardware-v1)
+
+Includes the BOM, PCB Gerber manufacturing files, and pick-and-place coordinates. The original author-supplied archive is preserved unchanged. Software and the dataset are not included.
